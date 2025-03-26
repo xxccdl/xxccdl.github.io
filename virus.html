@@ -15,6 +15,7 @@
             margin: 0;
             background: url('./R.jpg') no-repeat center center fixed;
             background-size: cover;
+            animation: fadeIn 2s ease-in-out;
         }
         .content {
             text-align: center;
@@ -22,25 +23,70 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            animation: zoomIn 0.5s ease-in-out;
+            width: 80%;
+            max-width: 800px;
         }
-        h1, h2 {
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .tabs button {
+            background-color: #FF0000;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1em;
+            margin: 0 5px;
+            border-radius: 5px 5px 0 0;
+        }
+        .tabs button.active {
+            background-color: white;
             color: #FF0000;
-            margin: 10px 0;
+            border-bottom: 2px solid #FF0000;
+        }
+        .tab-content {
+            display: none;
+            animation: fadeIn 1s ease-in-out;
+        }
+        .tab-content.active {
+            display: block;
         }
         ul {
             list-style-type: none;
             padding: 0;
         }
         ul li {
-            margin: 10px 0;
+            margin: 20px 0;
+            animation: fadeIn 1s ease-in-out;
         }
         ul li a {
             font-size: 1.2em;
             color: #FF0000;
             text-decoration: none;
         }
+        ul li p {
+            font-size: 0.9em;
+            color: #333;
+            margin: 5px 0 0 0;
+        }
         ul li a:hover {
             text-decoration: underline;
+            color: #333;
+        }
+        h1, h2 {
+            color: #FF0000;
+            margin: 10px 0;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes zoomIn {
+            from { transform: scale(0.9); }
+            to { transform: scale(1); }
         }
     </style>
     <script> 
@@ -51,12 +97,35 @@
     <div class="content">
         <h1>请注意！！！</h1>
         <h2>这里是xxccdl的病毒库</h2>
-        <p>警告：这个页面下载的文件将会威胁你的计算机安全，这些病毒只作为学习研究和娱乐观赏所用，严禁用于恶意破坏，运行后的后果作者将不会承担任何责任！！！包括法律责任！！！</p>
-        <p>如果进行下载，则你已阅读和同意警告的内容！如果不同意，请关闭本网页！</p>
-        <ul>
-            <li><a href="./jocker木马.bat" download="jocker木马.bat">jocker木马病毒</a></li>
-            <li><a href="https://xxccdl.github.io/index.html">作者主页</a></li>
-        </ul>
+        <div class="tabs">
+            <button class="tab-link active" data-tab="tab-1">警告</button>
+            <button class="tab-link" data-tab="tab-2">病毒列表</button>
+        </div>
+        <div id="tab-1" class="tab-content active">
+            <p>警告：这个页面下载的文件将会威胁你的计算机安全，这些病毒只作为学习研究和娱乐观赏所用，严禁用于恶意破坏，运行后的后果作者将不会承担任何责任。</p>
+            <p>如果进行下载，则你已阅读和同意警告的内容！如果不同意，请关闭本网页！</p>
+        </div>
+        <div id="tab-2" class="tab-content">
+            <ul>
+                <li><a href="./jocker木马.bat" download="jocker木马.bat">jocker木马病毒</a></li>
+                <li><a href="https://xxccdl.github.io/index.html">作者主页</a></li>
+            </ul>
+        </div>
     </div>
+
+    <script>
+        const tabs = document.querySelectorAll('.tab-link');
+        const contents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(item => item.classList.remove('active'));
+                contents.forEach(content => content.classList.remove('active'));
+
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
+            });
+        });
+    </script>
 </body>
 </html>
