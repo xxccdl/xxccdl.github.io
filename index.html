@@ -24,18 +24,35 @@
             border-radius: 10px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
             animation: zoomIn 0.5s ease-in-out;
+            width: 80%;
+            max-width: 800px;
         }
-        h1 {
-            font-size: 2em;
-            color: #FF0000;
-            margin: 0;
-            animation: slideDown 1s ease-in-out;
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
         }
-        h2 {
-            font-size: 1.5em;
+        .tabs button {
+            background-color: #FF0000;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1em;
+            margin: 0 5px;
+            border-radius: 5px 5px 0 0;
+        }
+        .tabs button.active {
+            background-color: white;
             color: #FF0000;
-            margin: 10px 0;
-            animation: slideDown 1s ease-in-out;
+            border-bottom: 2px solid #FF0000;
+        }
+        .tab-content {
+            display: none;
+            animation: fadeIn 1s ease-in-out;
+        }
+        .tab-content.active {
+            display: block;
         }
         ul {
             list-style-type: none;
@@ -79,21 +96,58 @@
             alert("欢迎来到xxccdl的主界面！");
         </script>
         <h1>xxccdl的主界面</h1>
-        <h2>选项：</h2>
-        <ul>
-            <li>
-                <a href="https://xxccdl.github.io/virus.html">xxccdl的病毒库</a>
-                <p>在这里查看和管理所有病毒样本。</p>
-            </li>
-            <li>
-                <a href="https://github.com/xxccdl">xxccdl的Github主页</a>
-                <p>访问xxccdl的GitHub主页，查看开源项目。</p>
-            </li>
-            <li>
-                <a href="https://gitee.com/xxccdl">xxccdl的Gitee主页</a>
-                <p>访问xxccdl的Gitee主页，查看更多项目。</p>
-            </li>
-        </ul>
+        <div class="tabs">
+            <button class="tab-link active" data-tab="tab-1">主页</button>
+            <button class="tab-link" data-tab="tab-2">病毒库</button>
+            <button class="tab-link" data-tab="tab-3">GitHub主页</button>
+            <button class="tab-link" data-tab="tab-4">Gitee主页</button>
+        </div>
+        <div id="tab-1" class="tab-content active">
+            <h2>欢迎</h2>
+            <p>欢迎来到xxccdl的主界面！</p>
+        </div>
+        <div id="tab-2" class="tab-content">
+            <h2>xxccdl的病毒库</h2>
+            <ul>
+                <li>
+                    <a href="https://xxccdl.github.io/virus.html">查看病毒样本</a>
+                    <p>在这里查看和管理所有病毒样本。</p>
+                </li>
+            </ul>
+        </div>
+        <div id="tab-3" class="tab-content">
+            <h2>xxccdl的GitHub主页</h2>
+            <ul>
+                <li>
+                    <a href="https://github.com/xxccdl">访问GitHub主页</a>
+                    <p>访问xxccdl的GitHub主页，查看开源项目。</p>
+                </li>
+            </ul>
+        </div>
+        <div id="tab-4" class="tab-content">
+            <h2>xxccdl的Gitee主页</h2>
+            <ul>
+                <li>
+                    <a href="https://gitee.com/xxccdl">访问Gitee主页</a>
+                    <p>访问xxccdl的Gitee主页，查看更多项目。</p>
+                </li>
+            </ul>
+        </div>
     </div>
+
+    <script>
+        const tabs = document.querySelectorAll('.tab-link');
+        const contents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(item => item.classList.remove('active'));
+                contents.forEach(content => content.classList.remove('active'));
+
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
+            });
+        });
+    </script>
 </body>
 </html>
