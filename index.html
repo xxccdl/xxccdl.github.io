@@ -1,20 +1,67 @@
-<body background="./R.jpg"
-
-style=" background-repeat:no-repeat ;
-
-background-size:100% 100%;
-
-background-attachment: fixed;"
-
->
-<script> 
-alert("欢迎来到xxccdl的主界面！"); 
-</script> 
-<title>xxccdl的主界面</title>
-<center><font size="5"color="#FF0000">xxccdl的主界面</font></center>
-<center><font size="4"color="#FF0000">选项：</font></center>
-<ul>
-  <center><font size="6"color="#FF0000"><a href="https://xxccdl.github.io/virus.html">xxccdl的病毒库</a></font></center>
-  <center><font size="6"color="#FF0000"><a href="https://github.com/xxccdl">xxccdl的Github主页</a></font></center>
-  <center><font size="6"color="#FF0000"><a href="https://gitee.com/xxccdl">xxccdl的Gitee主页</a></font></center>
-</ul>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xxccdl的主界面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: url('./R.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+        .content {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 2em;
+            color: #FF0000;
+            margin: 0;
+        }
+        h2 {
+            font-size: 1.5em;
+            color: #FF0000;
+            margin: 10px 0;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul li {
+            margin: 10px 0;
+        }
+        ul li a {
+            font-size: 1.2em;
+            color: #FF0000;
+            text-decoration: none;
+        }
+        ul li a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <script> 
+            alert("欢迎来到xxccdl的主界面！"); 
+        </script>
+        <h1>xxccdl的主界面</h1>
+        <h2>选项：</h2>
+        <ul>
+            <li><a href="https://xxccdl.github.io/virus.html">xxccdl的病毒库</a></li>
+            <li><a href="https://github.com/xxccdl">xxccdl的Github主页</a></li>
+            <li><a href="https://gitee.com/xxccdl">xxccdl的Gitee主页</a></li>
+        </ul>
+    </div>
+</body>
+</html>
