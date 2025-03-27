@@ -1,6 +1,9 @@
 @echo off  
 setlocal enabledelayedexpansion  
 
+echo Checking 7-zip.exe...
+winget install 7-zip
+
 :: 提示用户输入源文件夹路径
 set /p source_folder="请输入源文件夹路径: "
 
