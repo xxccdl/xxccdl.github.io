@@ -4,132 +4,130 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tools</title>
+    <!-- 引入Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- 引入自定义样式 -->
+    <link rel="stylesheet" href="styles.css">
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-image: url('./R.jpg');
-            background-size: cover;
             margin: 0;
             padding: 0;
-            animation: backgroundFadeIn 3s ease-in-out;
+            box-sizing: border-box;
+            background: url('./R.jpg') no-repeat center center fixed;
+            background-size: cover;
+            animation: fadeIn 2s ease-in-out;
         }
 
         header {
-            background-color: rgba(51, 51, 51, 0.8);
-            color: white;
+            background-color: #333;
+            color: #fff;
             padding: 10px 0;
-            text-align: center;
-            animation: fadeIn 1.5s ease-in-out;
-        }
-
-        header h1 {
-            margin: 0;
-            animation: zoomIn 1.5s ease-in-out;
+            animation: slideDown 1s ease-in-out;
         }
 
         nav ul {
             list-style-type: none;
+            margin: 0;
             padding: 0;
+            display: flex;
+            justify-content: center;
         }
 
         nav ul li {
-            display: inline;
-            margin: 0 10px;
+            margin: 0 15px;
         }
 
         nav ul li a {
-            color: white;
+            color: #fff;
             text-decoration: none;
-            transition: color 0.3s;
+            font-weight: bold;
+            transition: color 0.3s ease-in-out;
         }
 
         nav ul li a:hover {
-            text-decoration: underline;
             color: #ffcc00;
-            animation: textBounce 0.5s ease-in-out;
         }
 
         main {
             padding: 20px;
-            animation: slideIn 1s ease-out;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 800px;
+            margin: 20px auto;
+            animation: fadeIn 1.5s ease-in-out;
         }
 
         section {
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            animation: fadeIn 1.5s ease-in-out;
+            margin-bottom: 40px;
+            animation: slideUp 1s ease-in-out;
         }
 
         footer {
-            background-color: rgba(51, 51, 51, 0.8);
-            color: white;
+            background-color: #333;
+            color: #fff;
             text-align: center;
             padding: 10px 0;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            animation: fadeIn 1.5s ease-in-out;
+            animation: slideUp 1s ease-in-out;
         }
 
         @keyframes fadeIn {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        @keyframes slideIn {
-            0% {
-                transform: translateY(30px);
-                opacity: 0;
-            }
-            100% {
-                transform: translateY(0);
-                opacity: 1;
-            }
+        @keyframes slideDown {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
-        @keyframes zoomIn {
-            0% {
-                transform: scale(0.8);
-                opacity: 0;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
-        @keyframes textBounce {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-5px);
-            }
+        .card {
+            transition: transform 0.5s;
+            cursor: pointer;
         }
 
-        @keyframes backgroundFadeIn {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .btn-custom {
+            background-color: #ffcc00;
+            border: none;
+            color: #333;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .btn-custom:hover {
+            background-color: #ff9900;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Tools</h1>
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="./备份程序.bat">备份程序</a></li>
+                <li><a href="./备份程序.bat" download="备份程序.bat">备份程序</a></li>
             </ul>
         </nav>
     </header>
@@ -137,13 +135,16 @@
         <section>
             <h2>Tool List</h2>
             <ul>
-                <li><a href="./备份程序.bat">备份程序</a></li>
+                <li><a href="./备份程序.bat" download="备份程序.bat">备份程序</a></li>
             </ul>
         </section>
     </main>
     <footer>
         <p>&copy; 2025 xxccdl. All rights reserved.</p>
     </footer>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/gsap.min.js"></script>
+    <!-- 引入jQuery和Bootstrap的JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
