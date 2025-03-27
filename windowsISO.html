@@ -67,17 +67,23 @@
         .tab button.active {
             background-color: #ccc;
         }
-        /* 添加淡入效果 */
-        @keyframes fadeIn {
-            from {opacity: 0;}
-            to {opacity: 1;}
-        }
-
         .tabcontent {
             display: none;
             padding: 20px;
             border-top: none;
-            animation: fadeIn 0.5s; /* 应用动画效果 */
+        }
+        .return-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #FF0000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .return-btn:hover {
+            background-color: #cc0000;
         }
     </style>
 </head>
@@ -114,6 +120,7 @@
             <h2>Windows 10</h2>
             <p>"ed2k://|file|cn_windows_10_enterprise_ltsc_2019_x64_dvd_9c09ff24.iso|4478906368|E7C526499308841A4A6D116C857DB669|/"</p>
         </div>
+        <button class="return-btn" onclick="returnToIndex()">返回主页</button>
     </div>
     <script>
         function openTab(evt, tabName) {
@@ -131,6 +138,10 @@
         }
         // Open the first tab by default
         document.getElementsByClassName("tablinks")[0].click();
+
+        function returnToIndex() {
+            window.location.href = 'index.html';
+        }
     </script>
 </body>
 </html>
