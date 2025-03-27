@@ -26,6 +26,7 @@
             animation: zoomIn 0.5s ease-in-out;
             width: 80%;
             max-width: 800px;
+            display: none; /* 初始隐藏 */
         }
         .tabs {
             display: flex;
@@ -88,10 +89,30 @@
             from { transform: translateY(-20px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
+        /* 新增加载圈圈样式 */
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
-    <div class="content">
+    <!-- 加载圈圈 -->
+    <div class="loader" id="loader"></div>
+
+    <div class="content" id="main-content">
         <script>
             alert("欢迎来到xxccdl的主界面！");
         </script>
@@ -157,6 +178,12 @@
                 tab.classList.add('active');
                 document.getElementById(tab.dataset.tab).classList.add('active');
             });
+        });
+
+        // 页面加载完毕后隐藏加载圈圈并显示内容
+        window.addEventListener('load', () => {
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
         });
     </script>
 </body>
