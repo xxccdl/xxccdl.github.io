@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>xxccdl的主界面</title>
+    <!-- 引入Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- 引入自定义样式 -->
     <link rel="stylesheet" href="styles.css">
     <style>
         body {
@@ -84,6 +87,39 @@
             from { transform: translateY(20px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
+
+        .card {
+            transition: transform 0.5s;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .btn-custom {
+            background-color: #ffcc00;
+            border: none;
+            color: #333;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .btn-custom:hover {
+            background-color: #ff9900;
+        }
     </style>
 </head>
 <body>
@@ -95,65 +131,70 @@
                 <li><a href="#github">GitHub主页</a></li>
                 <li><a href="#gitee">Gitee主页</a></li>
                 <li><a href="#iso">Windows ISO 镜像</a></li>
-                <li><a href="#tools">实用工具</a></li> <!-- 新增的导航选项 -->
+                <li><a href="#tools">实用工具</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
         <section id="home">
-            <h1>欢迎</h1>
-            <p>欢迎来到xxccdl的主界面！这里提供病毒样本（警告：这些病毒样本将会威胁你的计算机安全，这些病毒只作为学习研究和娱乐观赏所用，网页作者和病毒作者（都是me）将不会承担任何责任！！！包括法律责任！！！）。</p>
+            <div class="jumbotron">
+                <h1 class="display-4">欢迎</h1>
+                <p class="lead">欢迎来到xxccdl的主界面！这里提供病毒样本（警告：这些病毒样本将会威胁你的计算机安全，这些病毒只作为学习研究和娱乐观赏所用，不要在生产环境中使用！！！）。</p>
+                <hr class="my-4">
+                <p>了解更多请访问下方链接。</p>
+                <a class="btn btn-primary btn-lg" href="#virus" role="button">了解更多</a>
+            </div>
         </section>
 
         <section id="virus">
             <h2>xxccdl的病毒库</h2>
-            <ul>
-                <li>
-                    <a href="https://xxccdl.github.io/virus.html">查看病毒样本</a>
-                    <p>在这里查看和管理所有的病毒样本（警告：病毒样本下载的文件将会威胁你的计算机安全，这些病毒只作为学习研究和娱乐观赏所用，网页作者和病毒作者（都是me）将不会承担任何责任！！！包括法律责任！！！）。</p>
-                </li>
-            </ul>
+            <div class="card" data-toggle="modal" data-target="#virusModal">
+                <div class="card-body">
+                    <h5 class="card-title">查看病毒样本</h5>
+                    <p class="card-text">在这里查看和管理所有的病毒样本（警告：病毒样本下载的文件将会威胁你的计算机安全，这些病毒只作为学习研究和娱乐观赏所用，网页作者和病毒作者（都是me）将不会承担任何责任！！！包括法律责任！！！）。</p>
+                </div>
+            </div>
         </section>
 
         <section id="github">
             <h2>xxccdl的GitHub主页</h2>
-            <ul>
-                <li>
-                    <a href="https://github.com/xxccdl">访问GitHub主页</a>
-                    <p>访问xxccdl的GitHub主页，查看开源项目。</p>
-                </li>
-            </ul>
+            <div class="card" data-toggle="modal" data-target="#githubModal">
+                <div class="card-body">
+                    <h5 class="card-title">访问GitHub主页</h5>
+                    <p class="card-text">访问xxccdl的GitHub主页，查看开源项目。</p>
+                </div>
+            </div>
         </section>
 
         <section id="gitee">
             <h2>xxccdl的Gitee主页</h2>
-            <ul>
-                <li>
-                    <a href="https://gitee.com/xxccdl">访问Gitee主页</a>
-                    <p>想查看xxccdl创作的更多项目，请访问xxccdl的Gitee主页。</p>
-                </li>
-            </ul>
+            <div class="card" data-toggle="modal" data-target="#giteeModal">
+                <div class="card-body">
+                    <h5 class="card-title">访问Gitee主页</h5>
+                    <p class="card-text">想查看xxccdl创作的更多项目，请访问xxccdl的Gitee主页。</p>
+                </div>
+            </div>
         </section>
 
         <section id="iso">
             <h2>Windows ISO 镜像</h2>
-            <ul>
-                <li>
-                    <a href="https://xxccdl.github.io/windowsISO.html">访问xxccdl的Windows ISO 镜像页面</a>
-                    <p>正版WindowsISO镜像（WindowsXP-Windows10（2019LTSC））注意！！！下载链接为ed2k格式（建议使用迅雷下载）！！！镜像来源：“https://msdn.itellyou.cn”。</p>
-                </li>
-            </ul>
+            <div class="card" data-toggle="modal" data-target="#isoModal">
+                <div class="card-body">
+                    <h5 class="card-title">访问xxccdl的Windows ISO 镜像页面</h5>
+                    <p class="card-text">正版WindowsISO镜像（WindowsXP-Windows10（2019LTSC））注意！！！下载链接为ed2k格式（建议使用迅雷下载）！！！镜像来源：“https://msdn.itellyou.cn”</p>
+                </div>
+            </div>
         </section>
 
         <section id="tools">
             <h2>实用工具</h2>
-            <ul>
-                <li>
-                    <a href="https://xxccdl.github.io/tools.html">访问实用工具页面</a>
-                    <p>在这里你可以找到各种实用工具，如文件转换、文本编辑等，帮助你更高效地完成任务。</p>
-                </li>
-            </ul>
+            <div class="card" data-toggle="modal" data-target="#toolsModal">
+                <div class="card-body">
+                    <h5 class="card-title">访问实用工具页面</h5>
+                    <p class="card-text">在这里你可以找到各种实用工具，如文件转换、文本编辑等，帮助你更高效地完成任务。</p>
+                </div>
+            </div>
         </section>
     </main>
 
@@ -161,5 +202,106 @@
         <p>&copy; 2025 xxccdl. All rights reserved.</p>
         <a href="https://github.com/xxccdl">about us</a>
     </footer>
+
+    <!-- 模态框 -->
+    <div class="modal fade" id="virusModal" tabindex="-1" role="dialog" aria-labelledby="virusModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="virusModalLabel">病毒库</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <a href="https://xxccdl.github.io/virus.html">查看病毒样本</a>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="githubModal" tabindex="-1" role="dialog" aria-labelledby="githubModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="githubModalLabel">GitHub主页</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <a href="https://github.com/xxccdl">访问GitHub主页，查看开源项目。</a>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="giteeModal" tabindex="-1" role="dialog" aria-labelledby="giteeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="giteeModalLabel">Gitee主页</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <a href="https://gitee.com/xxccdl">访问Gitee主页</a>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="isoModal" tabindex="-1" role="dialog" aria-labelledby="isoModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="isoModalLabel">Windows ISO 镜像</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <a href="https://xxccdl.github.io/windowsISO.html">访问xxccdl的Windows ISO 镜像页面</a>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="toolsModal" tabindex="-1" role="dialog" aria-labelledby="toolsModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="toolsModalLabel">实用工具</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <a href="https://xxccdl.github.io/tools.html">访问实用工具页面</a>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 引入jQuery和Bootstrap的JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
