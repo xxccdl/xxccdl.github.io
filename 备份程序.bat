@@ -1,37 +1,51 @@
 @echo off  
 setlocal enabledelayedexpansion  
-  
-:: ÉèÖÃÔ´ÎÄ¼ş¼ĞºÍÄ¿±êÎÄ¼ş¼ĞÂ·¾¶  
-set "source_folder=%userprofile%\desktop"
-set "destination_folder=C:\±¸·İ³ÌĞò\ÎÄ¼ş"  
 
-:: ¼ì²éÄ¿±êÎÄ¼ş¼ĞÊÇ·ñ´æÔÚ£¬Èç¹û²»´æÔÚÔò´´½¨  
-if not exist "%destination_folder%" mkdir "%destination_folder%"  
-if not exist "C:\±¸·İ³ÌĞò\ÎÄ¼ş\log" mkdir "C:\±¸·İ³ÌĞò\ÎÄ¼ş\log"
+:: æç¤ºç”¨æˆ·è¾“å…¥æºæ–‡ä»¶å¤¹è·¯å¾„
+set /p source_folder="è¯·è¾“å…¥æºæ–‡ä»¶å¤¹è·¯å¾„: "
 
-:: »ñÈ¡µ±Ç°ÈÕÆÚ£¬ÓÃÓÚ´´½¨±¸·İÎÄ¼ş¼Ğ  
-set "backup_date=%date:~-4,4%%date:~-10,2%%date:~-7,2%"  
-set "backup_folder=%destination_folder%\Backup_%backup_date%"  
-  
-:: ´´½¨±¸·İÎÄ¼ş¼Ğ  
-if not exist "%backup_folder%" mkdir "%backup_folder%"  
-  
-:: ¸´ÖÆÔ´ÎÄ¼ş¼ĞÄÚÈİµ½±¸·İÎÄ¼ş¼Ğ  
-xcopy /E /I /Y "%source_folder%" "%backup_folder%"  
-echo Backup is working... >C:\±¸·İ³ÌĞò\ÎÄ¼ş\log\log.log
-"C:\Program Files\7-Zip\7z.exe" a -tzip "%source_folder%.zip" "%source_folder%" 
+:: æç¤ºç”¨æˆ·è¾“å…¥ç›®æ ‡æ–‡ä»¶å¤¹è·¯å¾„
+set /p destination_folder="è¯·è¾“å…¥ç›®æ ‡æ–‡ä»¶å¤¹è·¯å¾„: "
 
-:: ¼ì²é¸´ÖÆÊÇ·ñ³É¹¦  
-if %errorlevel% equ 0 (  
-    echo Backup completed successfully.  
-    echo Backup completed successfully. >>C:\±¸·İ³ÌĞò\ÎÄ¼ş\log\log.log
-) else (  
-    echo Backup failed.  
-    echo Backup failed. >>C:\±¸·İ³ÌĞò\ÎÄ¼ş\log\log.log
-)  
-  
-:: ÔİÍ£ÒÔ²é¿´½á¹û  
-pause  
-  
-:: ½áÊø±¾µØ±äÁ¿ÆôÓÃÑÓ³ÙÀ©Õ¹  
+:: æ£€æŸ¥è·¯å¾„æ˜¯å¦æœ‰æ•ˆ
+if not exist "%source_folder%" (
+    echo æºæ–‡ä»¶å¤¹è·¯å¾„æ— æ•ˆï¼Œè¯·é‡æ–°è¿è¡Œç¨‹åºå¹¶è¾“å…¥æœ‰æ•ˆè·¯å¾„.
+    pause
+    goto :eof
+)
+if not exist "%destination_folder%" (
+    echo ç›®æ ‡æ–‡ä»¶å¤¹è·¯å¾„æ— æ•ˆï¼Œè¯·é‡æ–°è¿è¡Œç¨‹åºå¹¶è¾“å…¥æœ‰æ•ˆè·¯å¾„.
+    pause
+    goto :eof
+)
+
+:: åˆ›å»ºç›®æ ‡æ–‡ä»¶å¤¹å’Œæ—¥å¿—æ–‡ä»¶å¤¹
+if not exist "%destination_folder%" mkdir "%destination_folder%"
+if not exist "%destination_folder%\log" mkdir "%destination_folder%\log"
+
+:: è·å–å½“å‰æ—¥æœŸï¼Œç”¨äºåˆ›å»ºå¤‡ä»½æ–‡ä»¶å¤¹
+set "backup_date=%date:~-4,4%%date:~-10,2%%date:~-7,2%"
+set "backup_folder=%destination_folder%\Backup_%backup_date%"
+
+:: åˆ›å»ºå¤‡ä»½æ–‡ä»¶å¤¹
+if not exist "%backup_folder%" mkdir "%backup_folder%"
+
+:: å¤åˆ¶æºæ–‡ä»¶å¤¹å†…å®¹åˆ°å¤‡ä»½æ–‡ä»¶å¤¹
+xcopy /E /I /Y "%source_folder%" "%backup_folder%"
+echo Backup is working... >"%destination_folder%\log\log.log"
+"C:\Program Files\7-Zip\7z.exe" a -tzip "%backup_folder%\Backup_%backup_date%.zip" "%backup_folder%"
+
+:: æ£€æŸ¥å¤‡ä»½æ˜¯å¦æˆåŠŸ
+if %errorlevel% equ 0 (
+    echo Backup completed successfully.
+    echo Backup completed successfully. >>"%destination_folder%\log\log.log"
+) else (
+    echo Backup failed.
+    echo Backup failed. >>"%destination_folder%\log\log.log"
+)
+
+:: æš‚åœä»¥æŸ¥çœ‹ç»“æœ
+pause
+
+:: ç»“æŸå¹¶å…³é—­å»¶è¿Ÿæ‰©å±•
 endlocal
