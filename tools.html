@@ -16,14 +16,14 @@
             box-sizing: border-box;
             background: url('./R.jpg') no-repeat center center fixed;
             background-size: cover;
-            animation: fadeIn 2s ease-in-out;
+            animation: fadeIn 3s ease-in-out;
         }
 
         header {
             background-color: #333;
             color: #fff;
             padding: 10px 0;
-            animation: slideDown 1s ease-in-out;
+            animation: slideDown 2s ease-in-out;
         }
 
         nav ul {
@@ -57,12 +57,12 @@
             width: 80%;
             max-width: 800px;
             margin: 20px auto;
-            animation: fadeIn 1.5s ease-in-out;
+            animation: fadeIn 3s ease-in-out;
         }
 
         section {
             margin-bottom: 40px;
-            animation: slideUp 1s ease-in-out;
+            animation: slideUp 2s ease-in-out;
         }
 
         footer {
@@ -70,7 +70,7 @@
             color: #fff;
             text-align: center;
             padding: 10px 0;
-            animation: slideUp 1s ease-in-out;
+            animation: slideUp 2s ease-in-out;
         }
 
         @keyframes fadeIn {
@@ -88,6 +88,12 @@
             to { transform: translateY(0); opacity: 1; }
         }
 
+        @keyframes textFadeIn {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
         .card {
             transition: transform 0.5s;
             cursor: pointer;
@@ -100,7 +106,7 @@
         .modal-content {
             background: rgba(255, 255, 255, 0.9);
             border-radius: 10px;
-            animation: fadeIn 1s ease-in-out;
+            animation: fadeIn 2s ease-in-out;
         }
 
         .btn-custom {
@@ -120,6 +126,16 @@
         .btn-custom:hover {
             background-color: #ff9900;
         }
+
+        .brand-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            color: #fff;
+            animation: textFadeIn 4s ease-in-out infinite;
+        }
     </style>
 </head>
 <body>
@@ -132,6 +148,7 @@
         </nav>
     </header>
     <main>
+        <div class="brand-text">xxccdl make</div>
         <section>
             <h2>Tool List</h2>
             <ul>
