@@ -11,6 +11,7 @@
             background-size: cover;
             margin: 0;
             padding: 0;
+            animation: backgroundFadeIn 3s ease-in-out;
         }
 
         header {
@@ -18,11 +19,12 @@
             color: white;
             padding: 10px 0;
             text-align: center;
-            animation: fadeIn 2s ease-in-out;
+            animation: fadeIn 1.5s ease-in-out;
         }
 
         header h1 {
             margin: 0;
+            animation: zoomIn 1.5s ease-in-out;
         }
 
         nav ul {
@@ -44,11 +46,12 @@
         nav ul li a:hover {
             text-decoration: underline;
             color: #ffcc00;
+            animation: textBounce 0.5s ease-in-out;
         }
 
         main {
             padding: 20px;
-            animation: slideIn 1.5s ease-out;
+            animation: slideIn 1s ease-out;
         }
 
         section {
@@ -56,7 +59,7 @@
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            animation: fadeIn 2s ease-in-out;
+            animation: fadeIn 1.5s ease-in-out;
         }
 
         footer {
@@ -67,25 +70,54 @@
             position: fixed;
             bottom: 0;
             width: 100%;
-            animation: fadeIn 2s ease-in-out;
+            animation: fadeIn 1.5s ease-in-out;
         }
 
         @keyframes fadeIn {
-            from {
+            0% {
                 opacity: 0;
             }
-            to {
+            100% {
                 opacity: 1;
             }
         }
 
         @keyframes slideIn {
-            from {
+            0% {
                 transform: translateY(30px);
                 opacity: 0;
             }
-            to {
+            100% {
                 transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes zoomIn {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes textBounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        @keyframes backgroundFadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
                 opacity: 1;
             }
         }
