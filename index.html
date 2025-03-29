@@ -120,9 +120,44 @@
         .btn-custom:hover {
             background-color: #ff9900;
         }
+
+        /* 加载动画的容器 */
+        #loading {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: rgba(255, 255, 255, 0.8);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 加载圈圈的样式 */
+        .spinner {
+            border: 16px solid #f3f3f3; /* Light grey */
+            border-top: 16px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+        }
+
+        /* 旋转动画 */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
+    <!-- 加载动画 -->
+    <div id="loading">
+        <div class="spinner"></div>
+    </div>
+
     <header>
         <nav>
             <ul>
@@ -140,7 +175,7 @@
         <section id="home">
             <div class="jumbotron">
                 <h1 class="display-4">欢迎</h1>
-                <p class="lead">欢迎来到xxccdl的主界面！这里提供病毒样本（警告：这些病毒样本将会威胁你的计算机安全，这些病毒只作为学习研究和娱乐观赏所用，不要在生产环境中使用！！！）。</p>
+                <p class="lead">欢迎来到xxccdl的主界面！这里提供病毒样本（警告：这些病毒样本将会威胁你的计算机安全，这些病毒只作为学习研究和娱乐观赏！！！</p>
                 <hr class="my-4">
                 <p>了解更多请访问下方链接。</p>
                 <a class="btn btn-primary btn-lg" href="#virus" role="button">了解更多</a>
@@ -152,7 +187,7 @@
             <div class="card" data-toggle="modal" data-target="#virusModal">
                 <div class="card-body">
                     <h5 class="card-title">查看病毒样本</h5>
-                    <p class="card-text">在这里查看和管理所有的病毒样本（警告：病毒样本下载的文件将会威胁你的计算机安全，这些病毒只作为学习研究和娱乐观赏所用，网页作者和病毒作者（都是me）将不会承担任何责任！！！包括法律责任！！！）。</p>
+                    <p class="card-text">在这里查看和管理所有的病毒样本（警告：病毒样本下载的文件将会威胁你的计算机安全，这些病毒只作为学习研究和娱乐观赏！！！</p>
                 </div>
             </div>
         </section>
@@ -182,7 +217,7 @@
             <div class="card" data-toggle="modal" data-target="#isoModal">
                 <div class="card-body">
                     <h5 class="card-title">访问xxccdl的Windows ISO 镜像页面</h5>
-                    <p class="card-text">正版WindowsISO镜像（WindowsXP-Windows10（2019LTSC））注意！！！下载链接为ed2k格式（建议使用迅雷下载）！！！镜像来源：“https://msdn.itellyou.cn”</p>
+                    <p class="card-text">正版WindowsISO镜像（WindowsXP-Windows10（2019LTSC））注意！！！下载链接为ed2k格式（建议使用迅雷下载）！！！镜像来源：“itellyou.cn"
                 </div>
             </div>
         </section>
@@ -303,5 +338,12 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- 页面加载完成后隐藏加载动画 -->
+    <script>
+        window.addEventListener('load', function() {
+            document.getElementById('loading').style.display = 'none';
+        });
+    </script>
 </body>
 </html>
