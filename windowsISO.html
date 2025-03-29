@@ -6,22 +6,22 @@
     <title>Windows ISO 镜像</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background: url('./R.jpg') no-repeat center center fixed;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('./R.jpg') no-repeat center center fixed;
             background-size: cover;
         }
         .content {
             text-align: center;
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(255, 255, 255, 0.9);
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
             animation: fadeIn 1s ease-in-out;
         }
         @keyframes fadeIn {
@@ -29,14 +29,14 @@
             to { opacity: 1; }
         }
         h1 {
-            font-size: 2em;
-            color: #FF0000;
+            font-size: 2.5em;
+            color: #FF4500;
             margin: 0;
             animation: slideIn 1s ease-in-out;
         }
         h2 {
-            font-size: 1.5em;
-            color: #FF0000;
+            font-size: 2em;
+            color: #FF4500;
             margin: 10px 0;
             animation: slideIn 1s ease-in-out;
         }
@@ -53,13 +53,13 @@
         }
         ul li a {
             font-size: 1.2em;
-            color: #FF0000;
+            color: #FF4500;
             text-decoration: none;
             transition: color 0.3s;
         }
         ul li a:hover {
             text-decoration: underline;
-            color: #cc0000;
+            color: #cc3700;
         }
         .tab {
             overflow: hidden;
@@ -90,7 +90,7 @@
             margin-top: 20px;
             padding: 10px 20px;
             font-size: 1em;
-            background-color: #FF0000;
+            background-color: #FF4500;
             color: white;
             border: none;
             border-radius: 5px;
@@ -98,7 +98,7 @@
             transition: background-color 0.3s;
         }
         .return-btn:hover {
-            background-color: #cc0000;
+            background-color: #cc3700;
         }
         /* 加载动画的容器 */
         #loading {
