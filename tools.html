@@ -23,6 +23,11 @@
             background-color: #333;
             color: #fff;
             padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             animation: slideDown 2s ease-in-out;
         }
 
@@ -50,13 +55,13 @@
         }
 
         main {
-            padding: 20px;
+            padding: 80px 20px 20px; /* 留出顶部导航栏的空间 */
             background-color: rgba(255, 255, 255, 0.8);
             border-radius: 10px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
             width: 80%;
             max-width: 800px;
-            margin: 20px auto;
+            margin: 100px auto 20px; /* 增加顶部空白 */
             animation: fadeIn 3s ease-in-out;
         }
 
@@ -97,16 +102,20 @@
         .card {
             transition: transform 0.5s;
             cursor: pointer;
+            background-color: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin: 20px 0;
         }
 
         .card:hover {
             transform: scale(1.05);
         }
 
-        .modal-content {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            animation: fadeIn 2s ease-in-out;
+        .card-body {
+            padding: 20px;
         }
 
         .btn-custom {
@@ -128,13 +137,11 @@
         }
 
         .brand-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
             font-size: 3rem;
             color: #fff;
             animation: textFadeIn 4s ease-in-out infinite;
+            text-align: center;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -151,9 +158,12 @@
         <div class="brand-text">xxccdl make</div>
         <section>
             <h2>Tool List</h2>
-            <ul>
-                <li><a href="./备份程序.bat" download="备份程序.bat">备份程序</a></li>
-            </ul>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">备份程序</h5>
+                    <a href="./备份程序.bat" download="备份程序.bat" class="btn btn-custom">Download</a>
+                </div>
+            </div>
         </section>
     </main>
     <footer>
