@@ -150,6 +150,58 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* DeepSeek styles */
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .title {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .description {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            color: #666;
+        }
+
+        .animate-button {
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .animate-button:hover {
+            background-color: #0056b3;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-30px);
+            }
+            60% {
+                transform: translateY(-15px);
+            }
+        }
+
+        #loading {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -171,6 +223,20 @@
             <h1>关于我</h1>
             <p>你好，我是xxccdl，欢迎来到我的个人介绍页面。</p>
             <p>我是这个网页的创造者，希望这个网页能帮到大家！</p>
+            <p>对了“about us”里有隐藏功能！！！就是deepseek对话！！！</p>
+        </section>
+
+        <!-- DeepSeek section -->
+        <section id="deepseek">
+            <div class="container">
+                <h1 class="title">DeepSeek</h1>
+                <p class="description">deepseek-r1（此网页的彩蛋）</p>
+                <input type="text" id="userInput" placeholder="Enter text here">
+                <button class="animate-button" onclick="callDeepSeekAPI()">Submit</button>
+                <button class="animate-button" onclick="startVoiceInput()">🎤</button>
+                <p id="result"></p>
+                <div id="loading">Loading...</div>
+            </div>
         </section>
     </main>
 
@@ -183,10 +249,62 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <!-- 页面加载完成后隐藏加载动画 -->
+    <!-- DeepSeek script -->
     <script>
-        window.addEventListener('load', function() {
-            document.getElementById('loading').style.display = 'none';
+        async function callDeepSeekAPI() {
+            const userInput = document.getElementById('userInput').value;
+
+            document.getElementById('loading').style.display = 'block';
+
+            try {
+                const response = await fetch('http://localhost:3000/deepseek', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ query: userInput })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                const resultText = data.text || JSON.stringify(data, null, 2);
+                document.getElementById('result').innerText = resultText;
+
+                // Save to local storage
+                let history = JSON.parse(localStorage.getItem('queryHistory')) || [];
+                history.push(userInput);
+                localStorage.setItem('queryHistory', JSON.stringify(history));
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('result').innerText = 'Error: ' + error.message;
+            } finally {
+                document.getElementById('loading').style.display = 'none';
+            }
+        }
+
+        function startVoiceInput() {
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'en-US';
+            recognition.start();
+
+            recognition.onresult = function(event) {
+                const userInput = event.results[0][0].transcript;
+                document.getElementById('userInput').value = userInput;
+            };
+
+            recognition.onerror = function(event) {
+                console.error('Speech recognition error', event);
+            };
+        }
+
+        document.querySelector('.animate-button').addEventListener('click', function() {
+            this.classList.add('bounce');
+            setTimeout(() => {
+                this.classList.remove('bounce');
+            }, 1000);
         });
     </script>
 </body>
