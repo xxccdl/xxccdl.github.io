@@ -5,18 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DeepSeek API Integration</title>
     <style>
+        body {
+            display: flex;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        #sidebar {
+            width: 250px;
+            background-color: #f4f4f4;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+        #main-content {
+            flex: 1;
+            padding: 20px;
+        }
         #loading {
             display: none;
+        }
+        #history {
+            margin-top: 20px;
+        }
+        .history-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
         }
     </style>
 </head>
 <body>
-    <h1>DeepSeek API Integration</h1>
-    <input type="text" id="userInput" placeholder="Enter text here">
-    <button onclick="callDeepSeekAPI()">Submit</button>
-    <button onclick="startVoiceInput()">🎤</button>
-    <p id="result"></p>
-    <div id="loading">Loading...</div>
+    <div id="sidebar">
+        <h2>History</h2>
+        <div id="history"></div>
+    </div>
+    <div id="main-content">
+        <h1>DeepSeek API Integration</h1>
+        <input type="text" id="userInput" placeholder="Enter text here">
+        <button onclick="callDeepSeekAPI()">Submit</button>
+        <button onclick="startVoiceInput()">🎤</button>
+        <p id="result"></p>
+        <div id="loading">Loading...</div>
+    </div>
 
     <script>
         async function callDeepSeekAPI() {
@@ -45,6 +76,9 @@
                 let history = JSON.parse(localStorage.getItem('queryHistory')) || [];
                 history.push(userInput);
                 localStorage.setItem('queryHistory', JSON.stringify(history));
+
+                // Update history display
+                displayHistory();
             } catch (error) {
                 console.error('Error:', error);
                 document.getElementById('result').innerText = 'Error: ' + error.message;
@@ -67,6 +101,21 @@
                 console.error('Speech recognition error', event);
             };
         }
+
+        function displayHistory() {
+            const history = JSON.parse(localStorage.getItem('queryHistory')) || [];
+            const historyContainer = document.getElementById('history');
+            historyContainer.innerHTML = '';
+            history.forEach((item, index) => {
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
+                historyItem.innerText = `${index + 1}. ${item}`;
+                historyContainer.appendChild(historyItem);
+            });
+        }
+
+        // Display history on page load
+        window.onload = displayHistory;
     </script>
 </body>
 </html>
