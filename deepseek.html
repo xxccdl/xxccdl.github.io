@@ -4,18 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DeepSeek API Integration</title>
+    <style>
+        #loading {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <h1>DeepSeek API Integration</h1>
     <input type="text" id="userInput" placeholder="Enter text here">
     <button onclick="callDeepSeekAPI()">Submit</button>
+    <button onclick="startVoiceInput()">🎤</button>
     <p id="result"></p>
+    <div id="loading">Loading...</div>
 
     <script>
         async function callDeepSeekAPI() {
             const userInput = document.getElementById('userInput').value;
             const apiKey = 'sk-695737ef24234941b66117da7cc9c685';
             const apiUrl = 'https://api.deepseek.com/v1/query';
+
+            document.getElementById('loading').style.display = 'block';
 
             try {
                 const response = await fetch(apiUrl, {
@@ -34,10 +43,32 @@
                 const data = await response.json();
                 const resultText = data.text || JSON.stringify(data, null, 2);
                 document.getElementById('result').innerText = resultText;
+
+                // Save to local storage
+                let history = JSON.parse(localStorage.getItem('queryHistory')) || [];
+                history.push(userInput);
+                localStorage.setItem('queryHistory', JSON.stringify(history));
             } catch (error) {
                 console.error('Error:', error);
                 document.getElementById('result').innerText = 'Error: ' + error.message;
+            } finally {
+                document.getElementById('loading').style.display = 'none';
             }
+        }
+
+        function startVoiceInput() {
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'en-US';
+            recognition.start();
+
+            recognition.onresult = function(event) {
+                const userInput = event.results[0][0].transcript;
+                document.getElementById('userInput').value = userInput;
+            };
+
+            recognition.onerror = function(event) {
+                console.error('Speech recognition error', event);
+            };
         }
     </script>
 </body>
