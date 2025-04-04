@@ -32,7 +32,8 @@
                 }
 
                 const data = await response.json();
-                document.getElementById('result').innerText = JSON.stringify(data, null, 2);
+                const resultText = data.text || JSON.stringify(data, null, 2);
+                document.getElementById('result').innerText = resultText;
             } catch (error) {
                 console.error('Error:', error);
                 document.getElementById('result').innerText = 'Error: ' + error.message;
