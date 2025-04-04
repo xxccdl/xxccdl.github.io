@@ -1,1 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepSeek API Integration</title>
+</head>
+<body>
+    <h1>DeepSeek API Integration</h1>
+    <input type="text" id="userInput" placeholder="Enter text here">
+    <button onclick="callDeepSeekAPI()">Submit</button>
+    <p id="result"></p>
 
+    <script>
+        async function callDeepSeekAPI() {
+            const userInput = document.getElementById('userInput').value;
+            const apiKey = 'sk-695737ef24234941b66117da7cc9c685';
+            const apiUrl = 'https://api.deepseek.com/v1/query';
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}`
+                    },
+                    body: JSON.stringify({ query: userInput })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                document.getElementById('result').innerText = JSON.stringify(data, null, 2);
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('result').innerText = 'Error: ' + error.message;
+            }
+        }
+    </script>
+</body>
+</html>
