@@ -21,17 +21,14 @@
     <script>
         async function callDeepSeekAPI() {
             const userInput = document.getElementById('userInput').value;
-            const apiKey = 'sk-695737ef24234941b66117da7cc9c685';
-            const apiUrl = 'https://api.deepseek.com/v1/query';
 
             document.getElementById('loading').style.display = 'block';
 
             try {
-                const response = await fetch(apiUrl, {
+                const response = await fetch('http://localhost:3000/deepseek', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${apiKey}`
+                        'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({ query: userInput })
                 });
