@@ -95,6 +95,20 @@
                 margin-left: 270px;
             }
         }
+        #conversationHistory {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .conversation-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
     </style>
 </head>
 <body>
@@ -113,6 +127,8 @@
         </div>
         <p id="result"></p>
         <div id="loading"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
+        <h2>Conversation History</h2>
+        <div id="conversationHistory"></div> <!-- 新增的对话历史展示区域 -->
     </main>
     <script>
         async function callDeepSeekAPI() {
@@ -136,34 +152,20 @@
                 const resultText = data.text || JSON.stringify(data, null, 2);
                 document.getElementById('result').innerText = resultText;
 
-                // Save to local storage
+                // 保存到本地存储
                 let history = JSON.parse(localStorage.getItem('queryHistory')) || [];
-                history.push(userInput);
+                history.push({ query: userInput, response: resultText });
                 localStorage.setItem('queryHistory', JSON.stringify(history));
 
-                // Update history display
+                // 更新历史显示
                 displayHistory();
+                displayConversationHistory(); // 更新对话历史
             } catch (error) {
                 console.error('Error:', error);
                 document.getElementById('result').innerText = 'Error: ' + error.message;
             } finally {
                 document.getElementById('loading').style.display = 'none';
             }
-        }
-
-        function startVoiceInput() {
-            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-            recognition.lang = 'en-US';
-            recognition.start();
-
-            recognition.onresult = function(event) {
-                const userInput = event.results[0][0].transcript;
-                document.getElementById('userInput').value = userInput;
-            };
-
-            recognition.onerror = function(event) {
-                console.error('Speech recognition error', event);
-            };
         }
 
         function displayHistory() {
@@ -173,17 +175,32 @@
             history.forEach((item, index) => {
                 const historyItem = document.createElement('div');
                 historyItem.className = 'history-item';
-                historyItem.innerText = `${index + 1}. ${item}`;
+                historyItem.innerText = `${index + 1}. ${item.query}`;
                 historyItem.addEventListener('click', function() {
-                    document.getElementById('userInput').value = item;
+                    document.getElementById('userInput').value = item.query;
                     callDeepSeekAPI(); // Optionally call the API again with the selected history item
                 });
                 historyContainer.appendChild(historyItem);
             });
         }
 
-        // Display history on page load
-        window.onload = displayHistory;
+        function displayConversationHistory() {
+            const history = JSON.parse(localStorage.getItem('queryHistory')) || [];
+            const conversationContainer = document.getElementById('conversationHistory');
+            conversationContainer.innerHTML = '';
+            history.forEach((item) => {
+                const conversationItem = document.createElement('div');
+                conversationItem.className = 'conversation-item';
+                conversationItem.innerHTML = `<strong>Query:</strong> ${item.query}<br><strong>Response:</strong> ${item.response}`;
+                conversationContainer.appendChild(conversationItem);
+            });
+        }
+
+        // Display history and conversation history on page load
+        window.onload = function() {
+            displayHistory();
+            displayConversationHistory();
+        };
     </script>
 </body>
 </html>
