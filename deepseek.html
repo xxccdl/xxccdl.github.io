@@ -18,6 +18,30 @@
                 max-height: 70vh;
                 overflow-y: auto;
             }
+            
+            .answer-details {
+                transition: all 0.3s ease;
+            }
+            
+            .answer-details pre {
+                white-space: pre-wrap;
+                word-wrap: break-word;
+                background: #e9ecef;
+                padding: 8px;
+                border-radius: 4px;
+            }
+            
+            .answer-details code {
+                font-family: 'SFMono-Regular', Consolas, monospace;
+                font-size: 0.9em;
+            }
+            
+            .answer-details blockquote {
+                border-left: 3px solid #dee2e6;
+                padding-left: 10px;
+                margin: 5px 0;
+                color: #6c757d;
+            }
             #response {
                 flex-grow: 1;
                 background: #fff;
@@ -200,11 +224,15 @@ function loadHistory() {
         '<h3>对话历史</h3>' + 
         paginated.map(item => `
             <div style="margin: 10px 0; padding: 10px; background: white; border-radius: 6px; cursor: pointer;" 
-                 onclick="document.getElementById('queryInput').value = '${item.question.replace(/'/g, "\\'")}'">
+                 onclick="this.querySelector('.answer-details').style.display = 
+                 this.querySelector('.answer-details').style.display === 'none' ? 'block' : 'none';">
                 <div style="color: #666; font-size:0.9em">${new Date(item.timestamp).toLocaleString()}</div>
                 <div style="font-weight: 500; margin:5px 0">${item.question}</div>
-                <div style="color: #666; font-size:0.9em; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">
+                <div class="answer-preview" style="color: #666; font-size:0.9em;">
                     ${item.answer.substring(0, 30)}...
+                </div>
+                <div class="answer-details" style="display:none; margin-top:10px; padding:10px; background:#f8f9fa; border-radius:4px;">
+                    ${marked.parse(item.answer)}
                 </div>
             </div>`
         ).join('');
