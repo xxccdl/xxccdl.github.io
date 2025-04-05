@@ -230,25 +230,47 @@ async function sendQuery() {
     if(window.timeoutId) clearTimeout(window.timeoutId);
     if(window.controller) window.controller.abort();
     
+    // 初始化指数退避参数
+    const baseDelay = 1000000;
+    const retryDelays = [1000000, 1000000*3, 1000000*9];
+    
     sendBtn.classList.add('loading');
     sendBtn.disabled = true;
     responseDiv.textContent = '思考中...';
 
     try {
+        // 添加网络状态检测
+        if (!navigator.onLine) {
+            throw new Error('网络连接不可用，请检查网络设置');
+        }
+        
         window.controller = new AbortController();
         window.timeoutId = setTimeout(() => {
             if(currentRetry < maxRetries) {
+                const delay = retryDelays[currentRetry];
                 currentRetry++;
-                responseDiv.textContent = `请求超时，正在重试 (${currentRetry}/${maxRetries})...`;
-                sendQuery();
+                responseDiv.textContent = `请求超时，${delay/1000}秒后重试 (${currentRetry}/${maxRetries})...`;
+                setTimeout(sendQuery, delay);
             } else {
                 responseDiv.textContent = '请求失败：超过最大重试次数';
                 sendBtn.classList.remove('loading');
                 sendBtn.disabled = false;
             }
             window.controller.abort();
-        }, 10000);
+        }, 1000000);  // 超时时间延长至1000秒
 
+        // 添加网络延迟检测
+        if (navigator.connection) {
+            const connection = navigator.connection;
+            if (connection.rtt > 1000) {
+                responseDiv.textContent = '网络延迟过高（当前延迟：'+connection.rtt+'ms），建议优化网络后重试';
+                sendBtn.classList.remove('loading');
+                sendBtn.disabled = false;
+                return;
+            }
+        }
+
+        window.controller = new AbortController();  // 每次请求创建新的AbortController
         const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
             signal: window.controller.signal,
             method: 'POST',
@@ -302,15 +324,34 @@ if (chunk.includes('rate_limit_exceeded')) {
             });
         }
     } catch (error) {
-        if (error.name === 'AbortError') {
-            responseDiv.textContent = '请求超时，请检查网络连接后重试';
-        } else {
-            responseDiv.textContent = '请求失败: ' + error.message;
-        }
-    } finally {
         clearTimeout(window.timeoutId);
+        
+        // 细化错误类型判断
+        const errorMap = {
+            AbortError: `请求超时（当前重试：${currentRetry}/${maxRetries}）`,
+            TypeError: '网络连接异常，请检查网络',
+            'rate_limit_exceeded': 'API调用超频，请1分钟后重试',
+            'NetworkError': '网络连接已中断'
+        };
+        
+        const errorMessage = errorMap[error.name] || error.message;
+        responseDiv.innerHTML = `
+            <div style="color:#dc3545;padding:15px;background:#ffeef0;border-radius:8px;">
+                <b>${errorMessage}</b>
+                <div style="margin-top:10px;color:#6c757d">
+                    ${error.name === 'AbortError' ? '🔄 正在自动重试...' : ''}
+                    ${error.name === 'TypeError' ? '🔌 建议：检查网络连接状态' : ''}
+                    ${errorMessage.includes('API') ? '⏳ 请等待后再试' : ''}
+                </div>
+            </div>
+        `;
+    } finally {
+        // 确保按钮状态重置
         sendBtn.classList.remove('loading');
         sendBtn.disabled = false;
+        currentRetry = 0;
+        clearTimeout(window.timeoutId);
+        window.controller = null;
     }
 }
 
